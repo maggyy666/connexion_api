@@ -1,0 +1,51 @@
+openapi: 3.0.0
+info:
+  title: Connexion OpenSearch API
+  version: 1.0.0
+
+paths:
+  /tenants:
+    get:
+      summary: Pobierz listę tenantów
+      operationId: api.tenants.get_tenants
+      responses:
+        '200':
+          description: Lista tenantów
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                    name:
+                      type: string
+                    data:
+                      type: string
+
+  /anomaly_detection/{tenant_id}:
+    get:
+      summary: Pobierz detektor anomalii dla danego tenant_id
+      operationId: api.anomaly_detection.get_anomaly_detection
+      parameters:
+        - name: tenant_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Parametry detektora anomalii
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  detector_id:
+                    type: string
+                  detector_name:
+                    type: string
+                  detector_description:
+                    type: string
