@@ -6,11 +6,10 @@ info:
 paths:
   /tenants:
     get:
-      summary: Pobierz listę tenantów
-      operationId: api.tenants.get_tenants
+      summary: Get all tenants
       responses:
-        '200':
-          description: Lista tenantów
+        "200":
+          description: List of tenants
           content:
             application/json:
               schema:
@@ -27,8 +26,7 @@ paths:
 
   /anomaly_detection/{tenant_id}:
     get:
-      summary: Pobierz detektor anomalii dla danego tenant_id
-      operationId: api.anomaly_detection.get_anomaly_detection
+      summary: Get anomaly detection info for a tenant
       parameters:
         - name: tenant_id
           in: path
@@ -36,8 +34,8 @@ paths:
           schema:
             type: string
       responses:
-        '200':
-          description: Parametry detektora anomalii
+        "200":
+          description: Anomaly detection info
           content:
             application/json:
               schema:
@@ -49,3 +47,5 @@ paths:
                     type: string
                   detector_description:
                     type: string
+        "404":
+          description: No anomaly detector found for this tenant
