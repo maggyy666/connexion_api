@@ -2,7 +2,7 @@ import re
 from opensearchpy import OpenSearch
 
 client = OpenSearch(
-    host = [{'host': 'localhost', 'port': 9200}],
+    hosts=["https://localhost:9200"],
     http_auth = ('admin', 'StrongPassw0rd!'),
     use_ssl = True,
     verify_certs = False
