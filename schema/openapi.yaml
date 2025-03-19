@@ -62,8 +62,6 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
                   $ref: "#/components/schemas/AnomalyDetector"
         "400":
           description: Bad Request - Invalid request parameters
