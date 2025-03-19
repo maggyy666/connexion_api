@@ -1,13 +1,14 @@
 import re
 from opensearchpy import OpenSearch
 
+
 client = OpenSearch(
     hosts=["https://localhost:9200"],
     http_auth = ('admin', 'StrongPassw0rd!'),
     use_ssl = True,
     verify_certs = False
 )
-async def get_tenants():
+async def search():
     index_name = "tenants"
     query = {"query": {"match_all": {}}}
 
