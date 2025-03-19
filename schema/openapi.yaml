@@ -1,0 +1,139 @@
+openapi: 3.0.0
+info:
+  title: Connexion OpenSearch API
+  version: 1.0.0
+
+paths:
+  /tenants:
+    get:
+      summary: Get all tenants
+      responses:
+        "200":
+          description: OK - Successfully retrieved all tenants
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Tenant"
+        "400":
+          description: Bad Request - Invalid request parameters
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "401":
+          description: Unauthorized - Missing or invalid authentication token
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "403":
+          description: Forbidden - You do not have permission to access this resource
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "404":
+          description: Not Found - No tenants found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "500":
+          description: Server Error - An error occurred on the server
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /anomaly_detection/{tenant_id}:
+    get:
+      summary: Get anomaly detection info for a tenant
+      parameters:
+        - name: tenant_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK - Successfully retrieved anomaly detectors
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/AnomalyDetector"
+        "400":
+          description: Bad Request - Invalid request parameters
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "401":
+          description: Unauthorized - Missing or invalid authentication token
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "403":
+          description: Forbidden - You do not have permission to access this resource
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "404":
+          description: Not Found - No anomaly detectors found for the tenant
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "500":
+          description: Server Error - An error occurred on the server
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+components:
+  schemas:
+    Tenant:
+      type: object
+      properties:
+        id:
+          type: string
+          example: "1"
+        name:
+          type: string
+          example: "Company A"
+        data:
+          type: string
+          example: "Finance"
+    AnomalyDetector:
+      type: object
+      properties:
+        detector_id:
+          type: string
+          example: "detector-finance-01"
+        name: 
+          type: string
+          example: "Finance Anomaly Detector"
+        description:
+          type: string
+          example: "Anomaly detector for finance data"
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+          example: "Invalid Request"
+        message:
+          type: string
+          example: "The provided parameters are incorrect."
+        status:
+          type: integer
+          example: 400
+
+
+
