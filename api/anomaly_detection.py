@@ -6,7 +6,7 @@ client = OpenSearch(
     use_ssl = True,
     verify_certs = False
 )
-async def get_anomaly_detection(tenant_id: str):
+async def get(tenant_id: str):
     index_name = "anomaly_detection"
     
     query = {
