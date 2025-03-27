@@ -1,0 +1,42 @@
+[project]
+name = "connexion-api"
+version = "0.1.0"
+description = "API built with Connexion and OpenSearch"
+authors = [
+    {name = "Jakub Czyz",email = "119632961+maggyy666@users.noreply.github.com"}
+]
+readme = "README.md"
+requires-python = ">=3.9,<4"
+license = "MIT"
+
+dependencies = [
+    "connexion (>=3.2.0,<4.0.0)",
+    "opensearch-py (>=2.8.0,<3.0.0)",
+    "starlette (>=0.46.1,<0.47.0)"
+]
+
+classifiers = [
+  "Programming Language :: Python :: 3.11",
+  "License :: OSI Approved :: MIT License",
+  "Operating System :: OS Independent"
+]
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.3.5"
+pylint = "^3.3.6"
+black = "^25.1.0"
+
+[project.scripts]
+connexion-api = "app.app:main"
+
+[tool.poetry]
+packages = [
+  { include = "api", from = "." },
+  { include = "app", from = "." }
+]
+
+
