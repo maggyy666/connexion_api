@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  opensearch:
+    image: opensearchproject/opensearch:latest
+    container_name: opensearch
+    environment:
+      - discovery.type=single-node
+      - OPENSEARCH_INITIAL_ADMIN_PASSWORD=${OPENSEARCH_PASSWORD}
+    ports:
+      - "${PORT}:9200"
+    env_file:
+      - .env
+    networks:
+      - opensearch-net
+
+networks:
+  opensearch-net:
+    driver: bridge

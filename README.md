@@ -47,3 +47,18 @@ OPENSEARCH_HOST=your-opensearch-host-url
 OPENSEARCH_USER=your-username
 OPENSEARCH_PASSWORD=your-password
 ```
+
+Or you can just use the provided `.env.example` file as a template:
+```
+cp .env.example .env
+```
+Then fill in your OpenSearch credentials in the newly created `.env` file.
+
+## Running OpenSearch with Docker
+
+To run OpenSearch locally, you can use the provided `docker-compose.yml`:
+
+```
+docker-compose up -d
+```
+It will start OpenSearch on port `9200` using the default credentials fron `.env`. Make sure the values in your `.env` file (like `OPENSEARCH_USER`) match the configuration in `docker-compose.yml`.
