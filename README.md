@@ -35,3 +35,15 @@ Running the app with `poetry run connexion-api` does <b>NOT</b> activate the vir
 ```
 .\.venv\Scripts\activate
 ```
+## Environment Configuration (.env)
+
+To configure the application using environment variables, create a `.env` file in the root of the project:
+```
+HOST=127.0.0.1
+PORT=8080
+DEBUG=false
+
+OPENSEARCH_HOST=your-opensearch-host-url
+OPENSEARCH_USER=your-username
+OPENSEARCH_PASSWORD=your-password
+```
