@@ -1,12 +1,13 @@
 from opensearchpy import OpenSearch
+from opensearchpy.helpers.query import MultiMatch
+from connexion.lifecycle import ConnexionRequest
+import connexion
 
-client = OpenSearch(
-    hosts=["https://localhost:9200"],
-    http_auth = ('admin', 'StrongPassw0rd!'),
-    use_ssl = True,
-    verify_certs = False
-)
 async def get(tenant_id: str):
+
+    request = ConnexionRequest = connexion.context.request
+    client = request.state.client
+
     index_name = "anomaly_detection"
     
     query = {
@@ -16,6 +17,7 @@ async def get(tenant_id: str):
             }
         }
     }
+
     response = client.search(index=index_name, body=query)
     try:
             if 'hits' in response and isinstance(response['hits'], dict):

@@ -1,16 +1,22 @@
 import re
 from opensearchpy import OpenSearch
+from opensearchpy.helpers.query import MultiMatch
+import connexion
+from connexion.lifecycle import ConnexionRequest
 
 
-client = OpenSearch(
-    hosts=["https://localhost:9200"],
-    http_auth = ('admin', 'StrongPassw0rd!'),
-    use_ssl = True,
-    verify_certs = False
-)
+
 async def search():
+
+    request: ConnexionRequest = connexion.context.request
+    client = request.state.client
     index_name = "tenants"
-    query = {"query": {"match_all": {}}}
+    query = {
+        "query": {
+            "match_all": {}
+        }
+    }
+
 
     response = client.search(index=index_name, body=query)
     tenants = []
@@ -19,6 +25,7 @@ async def search():
             if 'hits' in response['hits'] and isinstance(response['hits']['hits'],list):
                     for hit in response['hits']['hits']:
                         description = hit['_source'].get('description','')
+
                         #REGEX
                         
                         match = re.search(r"NAME: (.+), DATA: (.+)", description) if description else None

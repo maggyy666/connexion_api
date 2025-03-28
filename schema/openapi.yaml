@@ -7,6 +7,7 @@ paths:
   /tenants:
     get:
       summary: Get all tenants
+      operationId: app.api.tenants.search
       responses:
         "200":
           description: OK - Successfully retrieved all tenants
@@ -62,6 +63,8 @@ paths:
           content:
             application/json:
               schema:
+                type: object
+                items:
                   $ref: "#/components/schemas/AnomalyDetector"
         "400":
           description: Bad Request - Invalid request parameters
@@ -122,16 +125,24 @@ components:
           example: "Anomaly detector for finance data"
     ErrorResponse:
       type: object
+      required:
+        - type
+        - title
+        - detail
+        - status
       properties:
-        error:
+        type:
           type: string
-          example: "Invalid Request"
-        message:
+          example: "https://example.com/docs/errors/400"
+        title:
           type: string
-          example: "The provided parameters are incorrect."
+          example: "Not found"
+        detail: 
+          type: string
+          example: "The requested resource was not found"
         status:
           type: integer
-          example: 400
+          example: 404
 
 
 
