@@ -30,8 +30,8 @@ Use poetry run to execute scripts inside the environment:
 ```
 poetry run connexion-api
 ```
-<i><b>Note:</b> 
-Running the app with `poetry run connexion-api` does <b>NOT</b> activate the virtual environment permanently. Instead, it executes the script within the virtual environment context, so dependencies are correctly resolved. To activate the virtual environment manually and work inside it interactively, use: </i>
+<b>Note:</b> 
+Running the app with `poetry run connexion-api` does <b>NOT</b> activate the virtual environment permanently. Instead, it executes the script within the virtual environment context, so dependencies are correctly resolved. To activate the virtual environment manually and work inside it interactively, use: 
 ```
 .\.venv\Scripts\activate
 ```
