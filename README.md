@@ -62,3 +62,4 @@ To run OpenSearch locally, you can use the provided `docker-compose.yml`:
 docker-compose up -d
 ```
 It will start OpenSearch on port `9200` using the default credentials fron `.env`. Make sure the values in your `.env` file (like `OPENSEARCH_USER`) match the configuration in `docker-compose.yml`.
+zzz
