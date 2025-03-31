@@ -10,43 +10,23 @@ paths:
       operationId: app.api.tenants.search
       responses:
         "200":
-          description: OK - Successfully retrieved all tenants
+          description: OK
           content:
             application/json:
               schema:
                 type: array
                 items:
                   $ref: "#/components/schemas/Tenant"
-        "400":
-          description: Bad Request - Invalid request parameters
+        "default":
+          description: Unexpected error
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
-        "401":
-          description: Unauthorized - Missing or invalid authentication token
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ErrorResponse"
-        "403":
-          description: Forbidden - You do not have permission to access this resource
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ErrorResponse"
-        "404":
-          description: Not Found - No tenants found
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ErrorResponse"
-        "500":
-          description: Server Error - An error occurred on the server
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ErrorResponse"
+
+
+
+
 
   /anomaly_detection/{tenant_id}:
     get:
@@ -66,36 +46,13 @@ paths:
                 type: object
                 items:
                   $ref: "#/components/schemas/AnomalyDetector"
-        "400":
-          description: Bad Request - Invalid request parameters
+        "default":
+          description: Unexpected error
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
-        "401":
-          description: Unauthorized - Missing or invalid authentication token
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ErrorResponse"
-        "403":
-          description: Forbidden - You do not have permission to access this resource
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ErrorResponse"
-        "404":
-          description: Not Found - No anomaly detectors found for the tenant
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ErrorResponse"
-        "500":
-          description: Server Error - An error occurred on the server
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ErrorResponse"
+
 
 components:
   schemas:
@@ -143,6 +100,74 @@ components:
         status:
           type: integer
           example: 404
+  responses:
+    BadRequest:
+      description: Bad Request - Invalid request parameters
+      content:
+        application/problem+json:
+          schema:
+            $ref: "#/components/schemas/ErrorResponse"
+          example:
+            type: "https://example.com/docs/errors/400"
+            title: "Bad Request"
+            detail: "Invalid request parameters"
+            status: 400
+    
+    Unauthorized:
+      description: Unauthorized - Missing or invalid authentication token
+      content:
+        application/problem+json:
+          schema:
+            $ref: "#/components/schemas/ErrorResponse"
+          example:
+            type: "https://example.com/docs/errors/401"
+            title: "Unauthorized"
+            detail: "Missing or invalid authentication token"
+            status: 401
+    TenantNotFound:
+      description: Not Found - No tenants found
+      content:
+        application/problem+json:
+          schema:
+            $ref: "#/components/schemas/ErrorResponse"
+          example:
+            type: "https://example.com/docs/errors/404"
+            title: "Not Found"
+            detail: "No tenants found"
+            status: 404
+    DetectorNotFound:
+      description: Not Found - No anomaly detectors found for the tenant
+      content:
+        application/problem+json:
+          schema:
+            $ref: "#/components/schemas/ErrorResponse"
+          example:
+            type: "https://example.com/docs/errors/404"
+            title: "Not Found"
+            detail: "No anomaly detectors found for the tenant"
+            status: 404
+    Forbidden:
+      description: Forbidden - You do not have permission to access this resource
+      content:
+        application/problem+json:
+          schema:
+            $ref: "#/components/schemas/ErrorResponse"
+          example:
+            type: "https://example.com/docs/errors/403"
+            title: "Forbidden"
+            detail: "You do not have permission to access this resource"
+            status: 403
+    InternalServerError:
+      description: Server Error - An error occurred on the server
+      content:
+        application/problem+json:
+          schema:
+            $ref: "#/components/schemas/ErrorResponse"
+          example:
+            type: "https://example.com/docs/errors/500"
+            title: "Internal Server Error"
+            detail: "An error occurred on the server"
+            status: 500
 
 
 
