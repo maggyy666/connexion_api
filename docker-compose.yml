@@ -8,12 +8,24 @@ services:
       - discovery.type=single-node
       - OPENSEARCH_INITIAL_ADMIN_PASSWORD=${OPENSEARCH_PASSWORD}
     ports:
-      - "${PORT}:9200"
+      - "9200:9200"
     env_file:
       - .env
     networks:
-      - opensearch-net
+      - backend
+
+  connexion-api:
+    image: connexion-api:latest
+    container_name: connexion-api
+    ports:
+      - "8080:8080"
+    env_file:
+      - .env
+    depends_on:
+      - opensearch
+    networks:
+      - backend
 
 networks:
-  opensearch-net:
+  backend:
     driver: bridge
