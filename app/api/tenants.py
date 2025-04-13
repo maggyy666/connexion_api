@@ -1,6 +1,7 @@
 import re
 from opensearchpy import OpenSearch
 from opensearchpy.helpers.query import MultiMatch
+from opensearchpy.exceptions import NotFoundError, TransportError
 import connexion
 from connexion.lifecycle import ConnexionRequest
 from connexion import problem
@@ -21,11 +22,13 @@ async def search():
 
     # Prints all data that matches the query
     
-    query = MultiMatch(query='NAME',fields=['description'], operator='and') 
-    response = client.search(index=index_name, body={'query': query.to_dict()})
+
     tenants = []
+    query = MultiMatch(query='NAME',fields=['description'], operator='and') 
 
     try:
+        
+        response = client.search(index=index_name, body={'query': query.to_dict()})
 
 
         if 'hits' in response and isinstance(response['hits'], dict):
@@ -52,7 +55,17 @@ async def search():
                 return problem(404, "Not Found", "Invalid hits field")
         else:
             return problem(404, "Not Found", "Invalid hits field")
+
+    
+    except NotFoundError as e:
+        return problem(404, "Not Found", "Index 'tenants' does not exist in OpenSearch")
+    
+    except TransportError as e:
+        return problem(500, "OpenSearch Transport Error", f"Error: {str(e)}")
+    
     except Exception as e:
         return problem(500, "Internal Server Error", str(e))
+    
+
     
     
