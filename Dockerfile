@@ -6,6 +6,8 @@ RUN pip install poetry
 
 COPY pyproject.toml poetry.lock README.md ./
 
+COPY schema ./schema
+
 COPY . /app
 
 
