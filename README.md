@@ -54,6 +54,20 @@ cp .env.example .env
 ```
 Then fill in your OpenSearch credentials in the newly created `.env` file.
 
+### ⚠️ OpenSearch Password Requirements
+
+OpenSearch enforces strong password validation. The password for `OPENSEARCH_PASSWORD` must meet the following criteria:
+
+- At least **8 characters**
+- At least **1 uppercase letter**
+- At least **1 lowercase letter**
+- At least **1 digit**
+- At least **1 special character**
+
+Example password: `StrongPassw0rd!`  
+You can test your password strength here: [https://lowe.github.io/tryzxcvbn](https://lowe.github.io/tryzxcvbn)
+
+
 ## Running OpenSearch with Docker
 
 To run OpenSearch locally, you can use the provided `docker-compose.yml`:
