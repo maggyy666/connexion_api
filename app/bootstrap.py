@@ -47,7 +47,7 @@ def run():
         resolver=RestyResolver('app.api'),
         pythonic_params=True,
         pass_context_arg_name='request',
-        validate_responses=True
+        validate_responses=False
     )
 
 
