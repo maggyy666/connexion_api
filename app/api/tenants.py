@@ -33,7 +33,10 @@ async def search():
 
         if 'hits' in response and isinstance(response['hits'], dict):
             if 'hits' in response['hits'] and isinstance(response['hits']['hits'],list):
-                    for hit in response['hits']['hits']:
+                    hits = response['hits']['hits']
+                    if not hits:
+                        return problem(404, "Not Found", "No tenants found")
+                    for hit in hits:
                         description = hit['_source'].get('description','')
 
                         #REGEX
